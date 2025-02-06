@@ -121,8 +121,9 @@ class Courses extends Controller {
     }
 
     public function enroll($courseId = null) {
-        // Check if course ID is provided
+        // Add debugging
         if(!$courseId) {
+            setFlash('error', 'Invalid course ID');
             redirect('courses');
         }
 
@@ -140,12 +141,21 @@ class Courses extends Controller {
 
         $studentModel = $this->model('Student');
         
-        // Try to enroll
-        if($studentModel->enrollCourse($courseId)) {
+        // Try to enroll and add debugging
+        $result = $studentModel->enrollCourse($courseId);
+        if($result) {
             setFlash('success', 'Successfully enrolled in the course!');
             redirect('student/dashboard');
         } else {
-            setFlash('error', 'You are already enrolled in this course or an error occurred');
+            // Add more specific error messages
+            $course = $this->courseModel->getById($courseId);
+            if(!$course) {
+                setFlash('error', 'Course not found');
+            } elseif($course->status !== 'published') {
+                setFlash('error', 'This course is not available for enrollment');
+            } else {
+                setFlash('error', 'You are already enrolled in this course or an error occurred');
+            }
             redirect('courses/show/' . $courseId);
         }
     }

@@ -57,10 +57,16 @@
                         </div>
                         <div class="text-right">
                             <p class="text-3xl font-bold text-gray-900">$<?php echo number_format($data['course']->price, 2); ?></p>
-                            <?php if(!isLoggedIn() || $_SESSION['user_role'] === 'student'): ?>
-                                <button class="mt-4 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Enroll Now
-                                </button>
+                            <?php if(isLoggedIn() && $_SESSION['user_role'] === 'student'): ?>
+                                <form action="<?php echo URLROOT; ?>/courses/enroll/<?php echo $data['course']->id; ?>" method="POST">
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Enroll Now
+                                    </button>
+                                </form>
+                            <?php elseif(!isLoggedIn()): ?>
+                                <a href="<?php echo URLROOT; ?>/users/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Login to Enroll
+                                </a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -163,7 +169,7 @@
                                                     </time>
                                                 </div>
                                                 <div class="mt-4 text-sm text-gray-600">
-                                                    <?php echo $review->comment; ?>
+                                                    <?php echo $review->review; ?>
                                                 </div>
                                             </div>
                                         </div>

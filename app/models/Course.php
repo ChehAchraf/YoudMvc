@@ -250,14 +250,14 @@ class Course {
     }
 
     public function addReview($data) {
-        $this->db->query('INSERT INTO course_reviews (course_id, user_id, rating, comment) 
-                          VALUES (:course_id, :user_id, :rating, :comment)');
+        $this->db->query('INSERT INTO course_reviews (course_id, user_id, rating, review) 
+                          VALUES (:course_id, :user_id, :rating, :review)');
 
         // Bind values
         $this->db->bind(':course_id', $data['course_id']);
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':rating', $data['rating']);
-        $this->db->bind(':comment', $data['comment']);
+        $this->db->bind(':review', $data['comment']);
 
         return $this->db->execute();
     }

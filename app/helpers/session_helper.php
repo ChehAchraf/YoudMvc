@@ -51,11 +51,11 @@ function setFlash($name, $message, $class = 'success') {
     ];
 }
 
-function flash() {
-    if(isset($_SESSION['flash'])) {
-        $flash = $_SESSION['flash'];
-        unset($_SESSION['flash']);
-        return $flash;
-    }
-    return null;
-} 
+// function flash() {
+//     if(isset($_SESSION['flash'])) {
+//         $flash = $_SESSION['flash'];
+//         unset($_SESSION['flash']);
+//         return $flash;
+//     }
+//     return null;
+// } 
