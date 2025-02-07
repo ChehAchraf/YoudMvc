@@ -168,4 +168,23 @@ class Teacher extends User {
         $this->db->bind(':instructor_id', $_SESSION['user_id']);
         return $this->db->single();
     }
+
+    // Get teacher profile
+    public function getTeacherProfile($userId) {
+        $this->db->query('SELECT u.*, 
+                         COUNT(DISTINCT c.id) as total_courses,
+                         COUNT(DISTINCT e.id) as total_students,
+                         AVG(r.rating) as avg_rating
+                         FROM users u 
+                         LEFT JOIN courses c ON u.id = c.instructor_id
+                         LEFT JOIN enrollments e ON c.id = e.course_id
+                         LEFT JOIN course_reviews r ON c.id = r.course_id
+                         WHERE u.id = :user_id AND u.role = \'teacher\'
+                         GROUP BY u.id, u.first_name, u.last_name, u.email, 
+                                 u.password, u.role, u.status, u.profile_image, 
+                                 u.bio, u.created_at, u.updated_at');
+
+        $this->db->bind(':user_id', $userId);
+        return $this->db->single();
+    }
 } 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 06 fév. 2025 à 15:50
+-- Généré le : ven. 07 fév. 2025 à 12:14
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -44,7 +44,10 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `parent_id`, `cre
 (1, 'Web Development', 'web-development', 'Learn web development technologies', NULL, '2025-02-05 14:08:50'),
 (2, 'Data Science', 'data-science', 'Master data science and analytics', NULL, '2025-02-05 14:08:50'),
 (3, 'Mobile Development', 'mobile-development', 'Build mobile applications', NULL, '2025-02-05 14:08:50'),
-(4, 'Ethical Hacking', 'ethical-hacking', 'The best Place where u can start learning ethical hacking', NULL, '2025-02-05 16:10:17');
+(4, 'Ethical Hacking', 'ethical-hacking', 'The best Place where u can start learning ethical hacking', NULL, '2025-02-05 16:10:17'),
+(5, 'Ana zaml', 'ana-zaml', '3afak abid aji n7wik', NULL, '2025-02-07 11:01:18'),
+(6, 'DevOps', 'devops', 'A place where u can grow ur knwoledge', NULL, '2025-02-07 11:02:49'),
+(7, 'Ana zamlzefzef', 'ana-zamlzefzef', '3afak abid aji n7wikzaedfef', NULL, '2025-02-07 11:03:03');
 
 -- --------------------------------------------------------
 
@@ -79,7 +82,9 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `title`, `slug`, `description`, `category_id`, `instructor_id`, `thumbnail`, `content_type`, `content_url`, `file_path`, `duration`, `price`, `level`, `status`, `is_free`, `published_at`, `created_at`, `updated_at`) VALUES
 (1, 'Introduction into syber security', '', 'Master the essentials of cybersecurity with this comprehensive course. Learn how to protect systems, networks, and data from cyber threats, understand key security protocols, and develop strategies for safeguarding digital assets in an ever-evolving landscape', 4, 10, 'thumbnails/67a4933b83751_logo (1).webp', 'video', NULL, NULL, NULL, 100.00, 'beginner', 'published', 0, NULL, '2025-02-06 09:16:25', '2025-02-06 11:01:07'),
-(3, 'Vue.js [ Full course For beginners ]', 'vue-js-full-course-for-beginners-', 'Vue.js is a progressive JavaScript framework used for building modern web applications. It focuses on the view layer, offering a flexible and reactive approach to building user interfaces. Vue provides an easy-to-learn structure with features like component-based development, two-way data binding, and a powerful ecosystem for routing, state management, and more. Perfect for creating interactive and dynamic front-end applications, Vue.js simplifies complex tasks and improves development efficiency.', 1, 10, 'thumbnails/67a48b6908444_0_zeeMDIHPVzjsyeuY.jpg', 'video', 'https://www.youtube.com/watch?v=KgcKB7ZrPvw&pp=ygUFdnVlanM%3D', '', NULL, 150.00, 'beginner', 'published', 0, NULL, '2025-02-06 10:14:01', '2025-02-06 11:01:05');
+(3, 'Vue.js [ Full course For beginners ]', 'vue-js-full-course-for-beginners-', 'Vue.js is a progressive JavaScript framework used for building modern web applications. It focuses on the view layer, offering a flexible and reactive approach to building user interfaces. Vue provides an easy-to-learn structure with features like component-based development, two-way data binding, and a powerful ecosystem for routing, state management, and more. Perfect for creating interactive and dynamic front-end applications, Vue.js simplifies complex tasks and improves development efficiency.', 1, 10, 'thumbnails/67a48b6908444_0_zeeMDIHPVzjsyeuY.jpg', 'video', 'https://www.youtube.com/watch?v=KgcKB7ZrPvw&pp=ygUFdnVlanM%3D', '', NULL, 150.00, 'beginner', 'published', 0, NULL, '2025-02-06 10:14:01', '2025-02-06 11:01:05'),
+(4, 'Ruby On Rails - [ get to know the', 'ruby-on-rails---get-to-know-the', 'This Ruby on Rails course teaches you how to build dynamic web applications using the Rails framework. You&#39;ll learn Ruby basics, MVC architecture, RESTful routing, and database management with hands-on projects, preparing you to create real-world applications efficiently/', 1, 12, 'thumbnails/67a5e2988662d_learn-rails.webp', 'document', '', 'courses/67a5e298874e9_Use case diagram (4).pdf', NULL, 40.00, 'beginner', 'published', 0, NULL, '2025-02-07 10:38:16', '2025-02-07 10:38:39'),
+(5, 'Django - [ use it like a pro ]', 'django---use-it-like-a-pro-', 'This Django course covers building web applications with the Django framework. You&#39;ll learn Python basics, Django’s MVC architecture, database handling, templating, and user authentication, all while creating practical, real-world projects. By the end, you&#39;ll be equipped to build and deploy scalable web apps.', 1, 13, 'thumbnails/67a5e517ef969_images.png', 'document', '', 'courses/67a5e517f0719_Practical_SQL_A_Beginners_Guide_to_Storytelling_with_Data,_2nd_Edition.pdf', NULL, 350.00, 'beginner', 'published', 0, NULL, '2025-02-07 10:48:55', '2025-02-07 10:49:04');
 
 -- --------------------------------------------------------
 
@@ -112,6 +117,14 @@ CREATE TABLE `course_reviews` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `course_reviews`
+--
+
+INSERT INTO `course_reviews` (`id`, `course_id`, `user_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 4, 'nice content teacher 👌😍😍', '2025-02-06 20:27:21', '2025-02-06 20:27:21'),
+(2, 5, 3, 4, 'Nice content teacher 😍', '2025-02-07 10:52:12', '2025-02-07 10:52:12');
+
 -- --------------------------------------------------------
 
 --
@@ -135,8 +148,19 @@ CREATE TABLE `enrollments` (
   `user_id` int(11) DEFAULT NULL,
   `enrolled_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `completed_at` timestamp NULL DEFAULT NULL,
-  `progress` int(11) DEFAULT 0
+  `progress` int(11) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `enrollments`
+--
+
+INSERT INTO `enrollments` (`id`, `course_id`, `user_id`, `enrolled_at`, `completed_at`, `progress`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, '2025-02-06 20:24:29', NULL, 0, '2025-02-06 20:24:29', '2025-02-06 20:24:29'),
+(2, 4, 3, '2025-02-07 10:39:35', NULL, 0, '2025-02-07 10:39:35', '2025-02-07 10:39:35'),
+(3, 5, 3, '2025-02-07 10:51:34', NULL, 0, '2025-02-07 10:51:34', '2025-02-07 10:51:34');
 
 -- --------------------------------------------------------
 
@@ -207,7 +231,9 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role
 (7, 'Admin', 'User', 'ashraf@admin.com', '$2y$10$8zUwhBi/HihL9.TpG1OyEOY.PtX6FBUxVPMGrV9FYCTZgX7ZxGjNi', 'admin', 'approved', NULL, NULL, '2025-02-05 15:50:22', '2025-02-05 15:50:22'),
 (9, 'Admin', 'User', 'admin@example.com', '$2y$10$8zUwhBi/HihL9.TpG1OyEOY.PtX6FBUxVPMGrV9FYCTZgX7ZxGjNi', 'admin', 'approved', NULL, NULL, '2025-02-05 15:54:36', '2025-02-05 15:54:36'),
 (10, 'houssam', 'lambaraa', 'houssam@gmail.com', '$2y$10$To9GVZh5niPzJA36qnlKr.1QtuO0k0uWCYzhVPv0VuWck0EMMvZ1a', 'teacher', 'approved', NULL, NULL, '2025-02-05 16:07:19', '2025-02-05 16:07:30'),
-(11, 'wissam', 'douskary', 'wissam@gmail.com', '$2y$10$cbTLoIw874etWlRzOpJnRevnVKyU6RlwLuV3T2bc3xaASFywFK1oa', 'student', 'approved', NULL, NULL, '2025-02-06 11:54:04', '2025-02-06 11:54:04');
+(11, 'wissam', 'douskary', 'wissam@gmail.com', '$2y$10$cbTLoIw874etWlRzOpJnRevnVKyU6RlwLuV3T2bc3xaASFywFK1oa', 'student', 'approved', NULL, NULL, '2025-02-06 11:54:04', '2025-02-06 11:54:04'),
+(12, 'abdelmalek', 'labid', 'abdo@gmail.com', '$2y$10$Jqi38HcsPIroa9CCfEy7runcDtbNFKRsKAXafbKyroD/iPU9QM9cC', 'teacher', 'approved', NULL, NULL, '2025-02-07 10:29:47', '2025-02-07 10:30:11'),
+(13, 'hatim', 'belghiti', 'hatim@gmail.com', '$2y$10$xWBDkNFuloRDGXxTyF5sEeqBHk2rPFL83EJAt1xTLnibwwF6HeM5i', 'teacher', 'approved', NULL, NULL, '2025-02-07 10:47:01', '2025-02-07 10:47:41');
 
 --
 -- Index pour les tables déchargées
@@ -296,13 +322,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `course_progress`
@@ -314,13 +340,13 @@ ALTER TABLE `course_progress`
 -- AUTO_INCREMENT pour la table `course_reviews`
 --
 ALTER TABLE `course_reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `enrollments`
 --
 ALTER TABLE `enrollments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `reviews`
@@ -338,7 +364,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Contraintes pour les tables déchargées

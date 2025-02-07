@@ -86,4 +86,18 @@ abstract class User {
 
         return $this->db->single();
     }
+
+    // Update User Profile
+    public function updateProfile($id, $data) {
+        $this->db->query('UPDATE ' . $this->table . ' SET first_name = :first_name, last_name = :last_name, email = :email, updated_at = CURRENT_TIMESTAMP WHERE id = :id');
+
+        // Bind values
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':id', $id);
+
+        // Execute
+        return $this->db->execute();
+    }
 } 

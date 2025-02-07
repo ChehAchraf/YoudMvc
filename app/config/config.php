@@ -1,10 +1,11 @@
 <?php
 namespace App\Config;
-// DB Params
+// DB Params for PostgreSQL
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'postgres');
+define('DB_PASS', 'ashraf1998');
 define('DB_NAME', 'youmvc');
+define('DB_PORT', '5432'); // Default PostgreSQL port
 
 // App Root
 define('APPROOT', dirname(dirname(__FILE__)));

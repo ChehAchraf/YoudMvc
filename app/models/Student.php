@@ -8,7 +8,7 @@ class Student extends User {
         // Get basic student details
         $this->db->query('SELECT u.* 
                          FROM users u 
-                         WHERE u.id = :user_id AND u.role = "student"');
+                         WHERE u.id = :user_id AND u.role = \'student\'');
         
         $this->db->bind(':user_id', $userId);
         $profile = $this->db->single();
@@ -90,7 +90,7 @@ class Student extends User {
             // Check if course exists and is published
             $this->db->query('SELECT id FROM courses 
                              WHERE id = :course_id 
-                             AND status = "published"');
+                             AND status = \'published\'');
             $this->db->bind(':course_id', $courseId);
             if(!$this->db->single()) {
                 return false;
@@ -130,7 +130,7 @@ class Student extends User {
         if($this->db->single()) {
             // Update existing review
             $this->db->query('UPDATE course_reviews 
-                             SET rating = :rating, review = :review, updated_at = NOW()
+                             SET rating = :rating, review = :review, updated_at = CURRENT_TIMESTAMP
                              WHERE user_id = :user_id AND course_id = :course_id');
         } else {
             // Insert new review

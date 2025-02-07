@@ -132,7 +132,7 @@ class Course {
         // Build update query
         $sql = 'UPDATE courses SET ' . 
                implode(', ', array_map(fn($field) => "$field = :$field", $updateFields)) . 
-               ', updated_at = NOW() WHERE id = :id AND instructor_id = :instructor_id';
+               ', updated_at = CURRENT_TIMESTAMP WHERE id = :id AND instructor_id = :instructor_id';
         
         $this->db->query($sql);
         
@@ -271,13 +271,17 @@ class Course {
                           JOIN categories cat ON c.category_id = cat.id 
                           LEFT JOIN enrollments e ON c.id = e.course_id
                           LEFT JOIN course_reviews r ON c.id = r.course_id
-                          GROUP BY c.id
+                          GROUP BY c.id, c.title, c.slug, c.description, c.category_id, 
+                          c.instructor_id, c.thumbnail, c.content_type, c.content_url, 
+                          c.file_path, c.duration, c.price, c.level, c.status, 
+                          c.is_free, c.published_at, c.created_at, c.updated_at,
+                          u.first_name, u.last_name, cat.name
                           ORDER BY c.created_at DESC');
         return $this->db->resultSet();
     }
 
     public function updateStatus($data) {
-        $this->db->query('UPDATE courses SET status = :status, updated_at = NOW() WHERE id = :id');
+        $this->db->query('UPDATE courses SET status = :status, updated_at = CURRENT_TIMESTAMP WHERE id = :id');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':status', $data['status']);
         return $this->db->execute();
@@ -289,7 +293,7 @@ class Course {
                 JOIN users u ON c.instructor_id = u.id 
                 JOIN categories cat ON c.category_id = cat.id 
                 LEFT JOIN course_reviews r ON c.id = r.course_id
-                WHERE c.status = "published"';
+                WHERE c.status = \'published\'';
 
         $params = [];
         
@@ -336,7 +340,7 @@ class Course {
                 JOIN users u ON c.instructor_id = u.id 
                 JOIN categories cat ON c.category_id = cat.id 
                 LEFT JOIN course_reviews r ON c.id = r.course_id
-                WHERE c.status = "published"';
+                WHERE c.status = \'published\'';
 
         $params = [];
         
@@ -360,14 +364,18 @@ class Course {
             $params[':price_max'] = $search['price_max'];
         }
 
-        $sql .= ' GROUP BY c.id';
+        $sql .= ' GROUP BY c.id, c.title, c.slug, c.description, c.category_id, 
+                  c.instructor_id, c.thumbnail, c.content_type, c.content_url, 
+                  c.file_path, c.duration, c.price, c.level, c.status, 
+                  c.is_free, c.published_at, c.created_at, c.updated_at,
+                  u.first_name, u.last_name, cat.name';
 
         if(!empty($search['rating'])) {
             $sql .= ' HAVING AVG(r.rating) >= :rating';
             $params[':rating'] = $search['rating'];
         }
 
-        $sql .= ' ORDER BY c.created_at DESC LIMIT :offset, :limit';
+        $sql .= ' ORDER BY c.created_at DESC LIMIT :limit OFFSET :offset';
         $params[':offset'] = $offset;
         $params[':limit'] = $perPage;
 

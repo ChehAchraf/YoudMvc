@@ -15,13 +15,17 @@ class Database {
     private $error;
 
     public function __construct() {
-        // Set DSN
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        // Change MySQL DSN to PostgreSQL DSN
+        $dsn = "pgsql:host=" . $this->host . 
+               ";port=" . DB_PORT . 
+               ";dbname=" . $this->dbname . 
+               ";user=" . $this->user . 
+               ";password=" . $this->pass;
+
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-            PDO::ATTR_EMULATE_PREPARES => false
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         );
 
         // Create PDO instance
